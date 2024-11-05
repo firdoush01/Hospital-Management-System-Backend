@@ -7,6 +7,7 @@ import { dbConnection } from "./database/dbConnection.js";
 import messageRouter from "./router/messageRouter.js"
 const app= express()
 config ({ path: ".env"})
+import { errorMiddleware } from "./middlewares/errorMiddleware.js"
 
 
 app.use(
@@ -34,4 +35,5 @@ app.use("/api/v1/message",messageRouter)
 
 dbConnection()
 
+app.use(errorMiddleware)
 export default app;
