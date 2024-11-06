@@ -30,7 +30,7 @@ export const isPatientAuthenticated = catchAsyncErrors(
     if (!token) {
       return next(new ErrorHandler("User is not authenticated!", 400));
     }
-    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = await User.findById(decoded.id);
     if (req.user.role !== "Patient") {
       return next(
@@ -53,3 +53,31 @@ export const isAuthorized = (...roles) => {
     next();
   };
 };
+
+// Logout function for dashboard admin
+export const logoutAdmin = catchAsyncErrors(async (req, res, next) => {
+    res
+      .status(201)
+      .cookie("adminToken", "", {
+        httpOnly: true,
+        expires: new Date(Date.now()),
+      })
+      .json({
+        success: true,
+        message: "Admin Logged Out Successfully.",
+      });
+  });
+  
+  // Logout function for frontend patient
+  export const logoutPatient = catchAsyncErrors(async (req, res, next) => {
+    res
+      .status(201)
+      .cookie("patientToken", "", {
+        httpOnly: true,
+        expires: new Date(Date.now()),
+      })
+      .json({
+        success: true,
+        message: "Patient Logged Out Successfully.",
+      });
+  });
