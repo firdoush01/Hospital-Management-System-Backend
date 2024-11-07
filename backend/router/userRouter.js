@@ -1,5 +1,5 @@
 import express from "express";
-import { addNewAdmin, getAllDoctors, getUserDetails, patientRegister, logoutAdmin, logoutPatient, login } from "../controllers/userController.js";
+import { addNewAdmin, getAllDoctors, getUserDetails, patientRegister, logoutAdmin, logoutPatient, login, addNewDoctor } from "../controllers/userController.js";
 import { isAdminAuthenticated, isPatientAuthenticated } from "../middlewares/auth.js";
 
 
@@ -13,6 +13,7 @@ router.get("/admin/me", isAdminAuthenticated,getUserDetails);
 router.get("/patient/me", isPatientAuthenticated,getUserDetails);
 router.get("/admin/logout", isAdminAuthenticated,logoutAdmin);
 router.get("/patient/logout", isPatientAuthenticated,logoutPatient);
+router.post("/doctor/addnew", isAdminAuthenticated,addNewDoctor);
 
 
 export default router;
