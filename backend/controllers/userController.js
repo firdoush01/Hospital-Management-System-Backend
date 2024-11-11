@@ -41,10 +41,10 @@ export const patientRegister = catchAsyncErrors(async (req, res, next) => {
     role: "Patient",
   });
   generateToken(user, "user Registered", 200, res)
-//   res.status(200).json({
-//     success: true,
-//     message: "user Registered"
-//   })
+  res.status(200).json({
+    success: true,
+    message: "user Registered"
+  })
 });
 
 // login
